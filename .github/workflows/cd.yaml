@@ -26,7 +26,6 @@ jobs:
         --runtime python39 \
         --trigger-resource fake-shop-lake \
         --trigger-event google.storage.object.finalize \
-        --service-account gcf-ci-service-account@infinite-rider-376814.iam.gserviceaccount.com
         --entry-point=process_file \
         --region=us-central1
 
