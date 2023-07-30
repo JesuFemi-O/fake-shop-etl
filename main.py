@@ -9,6 +9,8 @@ def process_file(event, context):
     bucket_name = event['bucket']
     file_name = event['name']
 
+    print(f"Processing file: {file_name}")
+
     # Ignore files in the processed subfolder
     if file_name.startswith('dev/processed/') or file_name.startswith('prod/processed/'):
         return
