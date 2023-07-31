@@ -58,6 +58,6 @@ if __name__ == "__main__":
     # This is for local testing, but the function will be triggered by GCS events in the cloud
     event_data = {
         "bucket": "fake-shop-lake",
-        "name": "dev/customer_orders.csv"
+        "name": "dev/customer_orders_969e53e6.csv"
     }
     process_file(event_data, None)

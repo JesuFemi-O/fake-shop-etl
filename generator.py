@@ -41,6 +41,8 @@ def upload_to_gcs(bucket_name, file_name, data, environment):
     blob = bucket.blob(full_file_name)
     blob.upload_from_string(csv_string.getvalue(), content_type='text/csv')
 
+    print(f"successfully uploaded file {full_file_name}")
+
 if __name__ == "__main__":
     environment = os.environ.get('ENVIRONMENT', 'PROD')
     file_name = 'customer_orders'
