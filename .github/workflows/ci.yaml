@@ -1,0 +1,40 @@
+name: Cloud Function CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:  # Enable manual triggering
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v0.2.1
+        with:
+          service_account_key: ${{ secrets.GCP_CI_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          export_default_credentials: false  # Disable default credentials export
+
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+        run: echo ${{ secrets.GCP_CI_SA_KEY }} > /tmp/key.json #probably an overkill
+
+      - name: Run tests
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/key.json
+        run: |
+          # Install the required dependencies
+          pip install -r requirements.txt
+
+          # Run your tests here
+          python main.py
