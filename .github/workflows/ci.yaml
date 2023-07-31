@@ -26,13 +26,17 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           export_default_credentials: false  # Disable default credentials export
 
-      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+      - name: Set up GCP service account credentials
         run: |
-          echo "${{ secrets.GCP_CI_SA_KEY }}" > /tmp/key.json
+          mkdir ./.gcloud
+          echo "$KEYFILE" > ./.gcloud/service-account.json
+        shell: bash
+        env:
+          KEYFILE: ${{ secrets.GCP_CI_SA_KEY }}
 
       - name: Run tests
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: /tmp/key.json
+          GOOGLE_APPLICATION_CREDENTIALS: ./.gcloud/service-account.json
         run: |
           # Install the required dependencies
           pip install -r requirements.txt
