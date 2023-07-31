@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.9
 
@@ -27,7 +27,8 @@ jobs:
           export_default_credentials: false  # Disable default credentials export
 
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        run: echo ${{ secrets.GCP_CI_SA_KEY }} > /tmp/key.json
+        run: |
+          echo "${{ secrets.GCP_CI_SA_KEY }}" > /tmp/key.json
 
       - name: Run tests
         env:
