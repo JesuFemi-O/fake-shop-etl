@@ -26,7 +26,7 @@ def process_file(event, context):
 
     # Load CSV file into BigQuery
     bigquery_client = bigquery.Client()
-    dataset_id = 'fake_shop'
+    dataset_id = 'new_fake_shop'
     if environment == 'DEV':
         dataset_id = f'dev_{dataset_id}'  # Prefix dataset_id with "dev_"
     table_id = 'customer_orders'
@@ -57,7 +57,7 @@ def process_file(event, context):
 if __name__ == "__main__":
     # This is for local testing, but the function will be triggered by GCS events in the cloud
     event_data = {
-        "bucket": "fake-shop-lake",
-        "name": "dev/customer_orders_969e53e6.csv"
+        "bucket": "fake-shop-lake-v2",
+        "name": "dev/customer_orders_3a7882e9.csv"
     }
     process_file(event_data, None)

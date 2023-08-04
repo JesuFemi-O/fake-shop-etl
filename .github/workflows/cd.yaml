@@ -24,9 +24,9 @@ jobs:
 
     - name: Deploy Cloud Function
       run: |
-        gcloud functions deploy fake-shop-etl \
+        gcloud functions deploy new-fake-shop-etl \
         --runtime python39 \
-        --trigger-resource fake-shop-lake \
+        --trigger-resource fake-shop-lake-v2 \
         --trigger-event google.storage.object.finalize \
         --entry-point=process_file \
         --region=us-central1
