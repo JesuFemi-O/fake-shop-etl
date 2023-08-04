@@ -18,6 +18,8 @@ To manage the pipeline, encourage collaboration, local development, testing and 
 
 ## Resources required
 
+To get the pipeline working you'll need to enable [Cloud Functions API](https://console.cloud.google.com/apis/api/cloudfunctions.googleapis.com) and [Cloud Build API](https://console.cloud.google.com/apis/api/cloudbuild.googleapis.com)
+
 - A GCS bucket: this is where files will be uploaded to trigger the pipeline
 
 - A Bigquery Dataset: We have to create two bigquery dataset where tables from the bucket will be created in production and development/ci.
@@ -55,22 +57,3 @@ CI is setup to trigger the function in a simillar manner as local development. T
 ## Production workflow
 In production, any file created in the bucket is processed by the pipeline, uploaded to Bigquery and the file is then moved to a subfolder called `processed`. files in the processed subfolder is ignored by the pipeline
 
-
-
-### misc [to be removed]
-
-To get the CD workflow working I had to run:
-
-```bash
-gcloud projects add-iam-policy-binding <PROJECT_ID> --member=serviceAccount:gcf-cd-service-account@<PROJECT_ID>.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
-```
-
-this was to to allow my CD service account the ability to be a service account caller/ a user of other service accounts in my project.
-
-# how to set this up:
-
-- create a storage bucket
-
-- create 3 service accounts, one for Continous Integration, Continuous Deployment, local development. The CI service account should be able to access GCS and Biguqery. The CD service account should have the Cloud functions developer role and should have permission to use other service accounts. the development seervice account should have same priviledges as the CI service account.
-
-- To be continued...lol
