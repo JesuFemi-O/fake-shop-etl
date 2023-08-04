@@ -47,6 +47,6 @@ if __name__ == "__main__":
     environment = os.environ.get('ENVIRONMENT', 'PROD')
     file_name = 'customer_orders'
 
-    bucket_name = 'fake-shop-lake'
+    bucket_name = 'fake-shop-lake-v2'
     orders = generate_customer_orders()
     upload_to_gcs(bucket_name, file_name, orders, environment)
